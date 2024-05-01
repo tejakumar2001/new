@@ -1,51 +1,31 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
-from streamlit.logger import get_logger
 
-LOGGER = get_logger(__name__)
+def chatbot_response(input_text):
+    # Define some simple rules or patterns for generating responses
+    if "hello" in input_text.lower():
+        return "Hi there! How can I help you?"
+    elif "how are you" in input_text.lower():
+        return "I'm doing well, thank you for asking!"
+    elif "bye" in input_text.lower():
+        return "Goodbye! Have a great day!"
+    else:
+        return "I'm sorry, I don't understand. Can you please rephrase your question?"
 
+def main():
+    st.title("💬 Simple Chatbot")
 
-def run():
-    st.set_page_config(
-        page_title="Hello",
-        page_icon="👋",
-    )
+    st.write("Ask me anything!")
 
-    st.write("# Welcome to Streamlit! 👋")
+    input_text = st.text_input("You")
 
-    st.sidebar.success("Select a demo above.")
-
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
-
+    if st.button("Send"):
+        if input_text:
+            response = chatbot_response(input_text)
+            st.write("Chatbot:", response)
+        else:
+            st.write("You:", input_text)
+            st.write("Chatbot:", "Please enter a question or message.")
 
 if __name__ == "__main__":
-    run()
+    main()
+
